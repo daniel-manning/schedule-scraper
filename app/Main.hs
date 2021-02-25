@@ -1,16 +1,18 @@
 module Main where
 
-import Lib
+import ScheduleParser
 import Text.XML.HXT.Core
+import Text.XML.HXT.HTTP
 
 main :: IO ()
 main = do
       runX $ xunpickleDocument xpTVSchedule [ withValidate no,
                                               withSubstDTDEntities no,
+                                              withHTTP [],
                                               withTrace 1,
                                               withRemoveWS yes,
                                               withPreserveComment no
-                                            ] "resource/6743.xml"
+                                            ] "http://www.xmltv.co.uk/feed/6743"
              >>>
              processTVSchedule
       return ()
