@@ -1,7 +1,9 @@
 module ScheduleParser
     ( 
         xpTVSchedule,
-        TVSchedule
+        TVSchedule (..),
+        Programme (..),
+        Channel (..)
     ) where
 
 

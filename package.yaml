@@ -23,6 +23,8 @@ dependencies:
 - base >= 4.7 && < 5
 - hxt
 - hxt-http
+- HDBC
+- HDBC-sqlite3
 
 library:
   source-dirs: src

@@ -1,6 +1,7 @@
 module Main where
 
 import ScheduleParser
+import Database
 import Text.XML.HXT.Core
 import Text.XML.HXT.HTTP
 
@@ -21,4 +22,8 @@ main = do
 
 processTVSchedule :: IOSArrow TVSchedule TVSchedule
 processTVSchedule
-    = arrIO ( \ x -> do {print x ; return x})
+    = arrIO $ \ x -> do
+          dbh <- connect "schedule.db"
+          addChannels dbh (channels x)
+          addProgrammes dbh (programmes x)
+          return x
