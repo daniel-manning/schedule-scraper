@@ -1,3 +1,5 @@
+{-# LANGUAGE DeriveGeneric #-}
+
 module ScheduleParser
     ( 
         xpTVSchedule,
@@ -8,12 +10,17 @@ module ScheduleParser
 
 
 import Text.XML.HXT.Core
+import Data.Aeson
+import GHC.Generics
 
 data Channel = Channel {
     channelID :: String,
     displayName :: String,
     iconSrc :: Maybe String
-} deriving Show
+} deriving (Show, Generic)
+
+instance FromJSON Channel
+instance ToJSON Channel
 
 data Programme = Programme {
     start :: String,

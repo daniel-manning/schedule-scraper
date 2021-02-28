@@ -25,6 +25,14 @@ dependencies:
 - hxt-http
 - HDBC
 - HDBC-sqlite3
+- servant
+- servant-server
+- wai
+- transformers
+- warp
+- aeson
+- servant-blaze
+- blaze-html
 
 library:
   source-dirs: src

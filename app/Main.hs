@@ -2,6 +2,7 @@ module Main where
 
 import ScheduleParser
 import Database
+import Server
 import Text.XML.HXT.Core
 import Text.XML.HXT.HTTP
 
@@ -16,6 +17,7 @@ main = do
                                             ] "http://www.xmltv.co.uk/feed/6743"
              >>>
              processTVSchedule
+      runServer
       return ()
 
 -- the dummy for processing the unpickled data
