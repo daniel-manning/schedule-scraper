@@ -24,4 +24,5 @@ cabal.project.local~
 schedule-screen.cabal
 resource/6743.xml
 stack.yaml.lock
+schedule.db
 *~

@@ -44,6 +44,7 @@ addChannels dbh channels =
       do 
           stmt <- prepare dbh "INSERT INTO channels (channelID, displayName, iconSrc) VALUES (?, ?, ?)"
           executeMany stmt $ map (\c -> [toSql (channelID c), toSql (displayName c), toSql (iconSrc c)]) channels
+          commit dbh
       where errorHandler e =
               do fail $ "Error adding Channel: " ++ show e
          
@@ -53,5 +54,6 @@ addProgrammes dbh programmes =
       do 
           stmt <- prepare dbh "INSERT INTO programmes (start, stop, channel, title, desc, episodeNum) VALUES (?, ?, ?, ?, ?, ?)"
           executeMany stmt $ map (\p -> [toSql (start p), toSql (stop p), toSql (channel p), toSql (snd $ title p), toSql (snd $ desc p), toSql (snd <$> episodeNum p)]) programmes
+          commit dbh
       where errorHandler e =
               do fail $ "Error adding Programme: " ++ show e
