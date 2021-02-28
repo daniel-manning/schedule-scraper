@@ -28,6 +28,7 @@ type Homepage = H.Html
 type Api =
   "channels" :> Get '[JSON] [Channel] :<|>
   {--"filterChannel" :> ReqBody '[JSON] Channel :> Post '[JSON] Channel :<|>--}
+  "programmes" :> Get '[JSON] [Programme] :<|>
   Raw
 
 
@@ -52,6 +53,7 @@ server :: IConnection conn => conn -> Server Api
 server dbh =
   getChannels :<|>
   {--filterChannel :<|>--}
+  getProgrammes :<|>
   staticServer
   where
     getChannels :: Handler [Channel]
@@ -59,6 +61,9 @@ server dbh =
 
     {--postExpansion :: ExpansionRecord -> Handler ExpansionRecord
     postExpansion expansion = liftIO $ addExpansion dbh expansion--}
+
+    getProgrammes :: Handler [Programme]
+    getProgrammes = liftIO $ getProgrammesList dbh
 
     staticServer :: ServerT Raw m
     staticServer = serveDirectoryWebApp "static-files"

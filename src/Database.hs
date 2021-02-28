@@ -1,8 +1,11 @@
+{-# LANGUAGE TupleSections #-}
+
 module Database (
   connect,
   addChannels,
   addProgrammes,
-  getChannelsList
+  getChannelsList,
+  getProgrammesList
 ) where
 
 import Database.HDBC
@@ -73,3 +76,14 @@ getChannelsList dbh =
           --retrieveChannel [] = []
           retrieveChannel [channelID,displayName,iconSrc] = Channel{ channelID = fromSql channelID, displayName = fromSql displayName, iconSrc = fromSql iconSrc}
 
+getProgrammesList :: IConnection conn => conn -> IO [Programme]
+getProgrammesList dbh =
+  handleSql errorHandler $
+    do 
+        r <- quickQuery' dbh "SELECT * FROM programmes" []
+        return $ map retrieveProgramme r
+    where errorHandler e =
+              do fail $ "Error getting programmes:\n"
+                      ++ show e
+          retrieveProgramme [start, stop, channel, title, desc, episodeNum] = Programme { start = fromSql start, stop = fromSql stop, channel = fromSql channel, title = ("en", fromSql title), desc = ("en", fromSql desc),  episodeNum = ("en",) <$> fromSql episodeNum}
+          

@@ -29,8 +29,10 @@ data Programme = Programme {
     title :: (String, String),
     desc :: (String, String),
     episodeNum :: Maybe (String, String)
-  } deriving Show
+  } deriving (Show, Generic)
 
+instance FromJSON Programme
+instance ToJSON Programme
 
 data TVSchedule = TVSchedule {
     generatorInfoName :: String,

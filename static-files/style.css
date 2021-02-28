@@ -11,3 +11,5 @@ ul { list-style-type: none;}
 li { padding-top: 7px; padding-bottom: 7px; width: 20%; }
 li > button { float: right; }
 span.grey { color:grey;}
+
+#programmes > ul > li {border-style: solid ridge; border-width:thin;}
